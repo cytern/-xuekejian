@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SUserDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SUser">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_name, user_password, user_type, c_time, u_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+    <select id="getUserByUserName" resultType="com.xuexikuaile.deng.pojo.SUser" parameterType="string">
+      select
+      <include refid="Base_Column_List" />
+      from s_user
+      where user_name = #{userName,jdbcType=VARCHAR};
+    </select>
+  <select id="getAllUsers" resultType="com.xuexikuaile.deng.pojo.SUser">
+    select
+    <include refid="Base_Column_List" />
+    from s_user;
+  </select>
+    <select id="getAllStudent" resultType="com.xuexikuaile.deng.pojo.SUser">
+      select * from s_user where user_type = 'student';
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.xuexikuaile.deng.pojo.SUser" useGeneratedKeys="true">
+    insert into s_user (user_name, user_password, user_type, 
+      c_time, u_time)
+    values (#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, 
+      #{cTime,jdbcType=TIMESTAMP}, #{uTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="com.xuexikuaile.deng.pojo.SUser" useGeneratedKeys="true">
+    insert into s_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.SUser">
+    update s_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        u_time = #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.SUser">
+    update s_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      u_time = #{uTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

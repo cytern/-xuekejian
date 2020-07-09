@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.STestClassDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.STestClass">
+    <id column="test_class_id" jdbcType="INTEGER" property="testClassId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="test_id" jdbcType="INTEGER" property="testId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    test_class_id, class_id, test_id, c_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_test_class
+    where test_class_id = #{testClassId,jdbcType=INTEGER}
+  </select>
+    <select id="getByTestId" resultType="com.xuexikuaile.deng.pojo.STestClass">
+      select * from s_test_class where test_id = #{testId};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_test_class
+    where test_class_id = #{testClassId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="test_class_id" keyProperty="testClassId" parameterType="com.xuexikuaile.deng.pojo.STestClass" useGeneratedKeys="true">
+    insert into s_test_class (class_id, test_id, c_time
+      )
+    values (#{classId,jdbcType=INTEGER}, #{testId,jdbcType=INTEGER}, #{cTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="test_class_id" keyProperty="testClassId" parameterType="com.xuexikuaile.deng.pojo.STestClass" useGeneratedKeys="true">
+    insert into s_test_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="testId != null">
+        test_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="testId != null">
+        #{testId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.STestClass">
+    update s_test_class
+    <set>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="testId != null">
+        test_id = #{testId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where test_class_id = #{testClassId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.STestClass">
+    update s_test_class
+    set class_id = #{classId,jdbcType=INTEGER},
+      test_id = #{testId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP}
+    where test_class_id = #{testClassId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAll" resultMap="BaseResultMap">
+    select * from s_test_class;
+  </select>
+</mapper>

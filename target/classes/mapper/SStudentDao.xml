@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SStudentDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SStudent">
+    <id column="s_student_id" jdbcType="INTEGER" property="sStudentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="student_url" jdbcType="VARCHAR" property="studentUrl" />
+    <result column="student_nick_name" jdbcType="VARCHAR" property="studentNickName" />
+    <result column="student_nick_url" jdbcType="VARCHAR" property="studentNickUrl" />
+    <result column="student_honor" jdbcType="VARCHAR" property="studentHonor" />
+    <result column="student_conf" jdbcType="VARCHAR" property="studentConf" />
+    <result column="student_designation" jdbcType="VARCHAR" property="studentDesignation" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_student_id, student_name, student_url, student_nick_name, student_nick_url, student_honor, 
+    student_conf, student_designation, class_id, c_time, u_time, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_student
+    where s_student_id = #{sStudentId,jdbcType=INTEGER}
+  </select>
+    <select id="getStudentByUserId" resultType="com.xuexikuaile.deng.pojo.SStudent">
+      select  <include refid="Base_Column_List" /> from s_student where user_id = #{userId};
+    </select>
+    <select id="getAllStudent" resultType="com.xuexikuaile.deng.pojo.SStudent">
+      select * from s_student;
+    </select>
+  <select id="getStudentByClassId" resultType="com.xuexikuaile.deng.pojo.SStudent" parameterType="java.lang.Integer">
+    select * from s_student where class_id = #{classId};
+  </select>
+  <select id="getNumOfOneClass" resultType="java.lang.Integer">
+    select count(*) from s_student where class_id = #{classId};
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_student
+    where s_student_id = #{sStudentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_student_id" keyProperty="sStudentId" parameterType="com.xuexikuaile.deng.pojo.SStudent" useGeneratedKeys="true">
+    insert into s_student (student_name, student_url, student_nick_name, 
+      student_nick_url, student_honor, student_conf, 
+      student_designation, class_id, c_time, 
+      u_time, user_id)
+    values (#{studentName,jdbcType=VARCHAR}, #{studentUrl,jdbcType=VARCHAR}, #{studentNickName,jdbcType=VARCHAR}, 
+      #{studentNickUrl,jdbcType=VARCHAR}, #{studentHonor,jdbcType=VARCHAR}, #{studentConf,jdbcType=VARCHAR}, 
+      #{studentDesignation,jdbcType=VARCHAR}, #{classId,jdbcType=INTEGER}, #{cTime,jdbcType=TIMESTAMP}, 
+      #{uTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="s_student_id" keyProperty="sStudentId" parameterType="com.xuexikuaile.deng.pojo.SStudent" useGeneratedKeys="true">
+    insert into s_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="studentUrl != null">
+        student_url,
+      </if>
+      <if test="studentNickName != null">
+        student_nick_name,
+      </if>
+      <if test="studentNickUrl != null">
+        student_nick_url,
+      </if>
+      <if test="studentHonor != null">
+        student_honor,
+      </if>
+      <if test="studentConf != null">
+        student_conf,
+      </if>
+      <if test="studentDesignation != null">
+        student_designation,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentUrl != null">
+        #{studentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNickName != null">
+        #{studentNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNickUrl != null">
+        #{studentNickUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="studentHonor != null">
+        #{studentHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="studentConf != null">
+        #{studentConf,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDesignation != null">
+        #{studentDesignation,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.SStudent">
+    update s_student
+    <set>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentUrl != null">
+        student_url = #{studentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNickName != null">
+        student_nick_name = #{studentNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNickUrl != null">
+        student_nick_url = #{studentNickUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="studentHonor != null">
+        student_honor = #{studentHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="studentConf != null">
+        student_conf = #{studentConf,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDesignation != null">
+        student_designation = #{studentDesignation,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        u_time = #{uTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where s_student_id = #{sStudentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.SStudent">
+    update s_student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      student_url = #{studentUrl,jdbcType=VARCHAR},
+      student_nick_name = #{studentNickName,jdbcType=VARCHAR},
+      student_nick_url = #{studentNickUrl,jdbcType=VARCHAR},
+      student_honor = #{studentHonor,jdbcType=VARCHAR},
+      student_conf = #{studentConf,jdbcType=VARCHAR},
+      student_designation = #{studentDesignation,jdbcType=VARCHAR},
+      class_id = #{classId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      u_time = #{uTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER}
+    where s_student_id = #{sStudentId,jdbcType=INTEGER}
+  </update>
+</mapper>

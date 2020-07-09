@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SClassDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SClass">
+    <result column="s_class_id" jdbcType="VARCHAR" property="sClassId" />
+    <result column="class_no_name" jdbcType="VARCHAR" property="classNoName" />
+    <result column="class_nick_name" jdbcType="VARCHAR" property="classNickName" />
+    <result column="class_url" jdbcType="VARCHAR" property="classUrl" />
+    <result column="class_watchword" jdbcType="VARCHAR" property="classWatchword" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+    <result column="class_conf" jdbcType="VARCHAR" property="classConf" />
+    <result column="class_honor" jdbcType="VARCHAR" property="classHonor" />
+    <result column="class_designation" jdbcType="VARCHAR" property="classDesignation" />
+  </resultMap>
+  <insert id="insert" parameterType="com.xuexikuaile.deng.pojo.SClass">
+    insert into s_class (s_class_id, class_no_name, class_nick_name, 
+      class_url, class_watchword, c_time, 
+      u_time, class_conf, class_honor, 
+      class_designation)
+    values (#{sClassId,jdbcType=VARCHAR}, #{classNoName,jdbcType=VARCHAR}, #{classNickName,jdbcType=VARCHAR}, 
+      #{classUrl,jdbcType=VARCHAR}, #{classWatchword,jdbcType=VARCHAR}, #{cTime,jdbcType=TIMESTAMP}, 
+      #{uTime,jdbcType=TIMESTAMP}, #{classConf,jdbcType=VARCHAR}, #{classHonor,jdbcType=VARCHAR}, 
+      #{classDesignation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexikuaile.deng.pojo.SClass">
+    insert into s_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sClassId != null">
+        s_class_id,
+      </if>
+      <if test="classNoName != null">
+        class_no_name,
+      </if>
+      <if test="classNickName != null">
+        class_nick_name,
+      </if>
+      <if test="classUrl != null">
+        class_url,
+      </if>
+      <if test="classWatchword != null">
+        class_watchword,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+      <if test="classConf != null">
+        class_conf,
+      </if>
+      <if test="classHonor != null">
+        class_honor,
+      </if>
+      <if test="classDesignation != null">
+        class_designation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sClassId != null">
+        #{sClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="classNoName != null">
+        #{classNoName,jdbcType=VARCHAR},
+      </if>
+      <if test="classNickName != null">
+        #{classNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="classUrl != null">
+        #{classUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="classWatchword != null">
+        #{classWatchword,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classConf != null">
+        #{classConf,jdbcType=VARCHAR},
+      </if>
+      <if test="classHonor != null">
+        #{classHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="classDesignation != null">
+        #{classDesignation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelectiveList" parameterType="java.util.List">
+    insert into s_class
+     (class_no_name,class_nick_name,class_url,class_watchword,c_time,u_time,class_conf,class_honor,class_designation)
+     values
+     <foreach collection="list" index="index" separator="," item="sClasses">
+       (#{sClasses.classNoName},#{sClasses.classNickName},#{sClasses.classUrl},#{sClasses.classWatchword},#{sClasses.cTime},#{sClasses.uTime},#{sClasses.classConf},#{sClasses.classHonor},#{sClasses.classDesignation})
+     </foreach>
+  </insert>
+  <select id="getAllClass" resultType="com.xuexikuaile.deng.pojo.SClass">
+    select * from s_class;
+  </select>
+    <select id="getById" resultType="com.xuexikuaile.deng.pojo.SClass">
+      select * from s_class where s_class_id =#{classId};
+    </select>
+</mapper>

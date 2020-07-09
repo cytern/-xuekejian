@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SChatDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SChat">
+    <id column="s_chat_id" jdbcType="INTEGER" property="sChatId" />
+    <result column="s_chat_title" jdbcType="VARCHAR" property="sChatTitle" />
+    <result column="s_chat_conf" jdbcType="VARCHAR" property="sChatConf" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_chat_id, s_chat_title, s_chat_conf, user_id, c_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_chat
+    where s_chat_id = #{sChatId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_chat
+    where s_chat_id = #{sChatId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_chat_id" keyProperty="sChatId" parameterType="com.xuexikuaile.deng.pojo.SChat" useGeneratedKeys="true">
+    insert into s_chat (s_chat_title, s_chat_conf, user_id, 
+      c_time)
+    values (#{sChatTitle,jdbcType=VARCHAR}, #{sChatConf,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{cTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="s_chat_id" keyProperty="sChatId" parameterType="com.xuexikuaile.deng.pojo.SChat" useGeneratedKeys="true">
+    insert into s_chat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sChatTitle != null">
+        s_chat_title,
+      </if>
+      <if test="sChatConf != null">
+        s_chat_conf,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sChatTitle != null">
+        #{sChatTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sChatConf != null">
+        #{sChatConf,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.SChat">
+    update s_chat
+    <set>
+      <if test="sChatTitle != null">
+        s_chat_title = #{sChatTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sChatConf != null">
+        s_chat_conf = #{sChatConf,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where s_chat_id = #{sChatId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.SChat">
+    update s_chat
+    set s_chat_title = #{sChatTitle,jdbcType=VARCHAR},
+      s_chat_conf = #{sChatConf,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      c_time = #{cTime,jdbcType=TIMESTAMP}
+    where s_chat_id = #{sChatId,jdbcType=INTEGER}
+  </update>
+</mapper>

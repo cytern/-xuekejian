@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SGradeDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SGrade">
+    <id column="s_grade_id" jdbcType="INTEGER" property="sGradeId" />
+    <result column="g_chinese" jdbcType="DECIMAL" property="gChinese" />
+    <result column="g_english" jdbcType="DECIMAL" property="gEnglish" />
+    <result column="g_math" jdbcType="DECIMAL" property="gMath" />
+    <result column="g_pysics" jdbcType="DECIMAL" property="gPysics" />
+    <result column="g_biology" jdbcType="DECIMAL" property="gBiology" />
+    <result column="g_chemistry" jdbcType="DECIMAL" property="gChemistry" />
+    <result column="g_history" jdbcType="DECIMAL" property="gHistory" />
+    <result column="g_politics" jdbcType="DECIMAL" property="gPolitics" />
+    <result column="g_geography" jdbcType="DECIMAL" property="gGeography" />
+    <result column="test_id" jdbcType="INTEGER" property="testId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="grade_status" jdbcType="VARCHAR" property="gradeStatus" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_grade_id, g_chinese, g_english, g_math, g_pysics, g_biology, g_chemistry, g_history, 
+    g_politics, g_geography, test_id, student_id, grade_status,class_id,total_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_grade
+    where s_grade_id = #{sGradeId,jdbcType=INTEGER}
+  </select>
+    <select id="getAllGrade" resultType="com.xuexikuaile.deng.pojo.SGrade">
+      select <include refid="Base_Column_List"></include>
+      from s_grade
+      where student_id = #{studentId};
+    </select>
+    <select id="getAllGradeByTestId" resultType="com.xuexikuaile.deng.pojo.SGrade">
+      select * from s_grade where  test_id = #{testId};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_grade
+    where s_grade_id = #{sGradeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_grade_id" keyProperty="sGradeId" parameterType="com.xuexikuaile.deng.pojo.SGrade" useGeneratedKeys="true">
+    insert into s_grade (g_chinese, g_english, g_math, 
+      g_pysics, g_biology, g_chemistry, 
+      g_history, g_politics, g_geography, 
+      test_id, student_id, grade_status
+      )
+    values (#{gChinese,jdbcType=DECIMAL}, #{gEnglish,jdbcType=DECIMAL}, #{gMath,jdbcType=DECIMAL}, 
+      #{gPysics,jdbcType=DECIMAL}, #{gBiology,jdbcType=DECIMAL}, #{gChemistry,jdbcType=DECIMAL}, 
+      #{gHistory,jdbcType=DECIMAL}, #{gPolitics,jdbcType=DECIMAL}, #{gGeography,jdbcType=DECIMAL}, 
+      #{testId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{gradeStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="s_grade_id" keyProperty="sGradeId" parameterType="com.xuexikuaile.deng.pojo.SGrade" useGeneratedKeys="true">
+    insert into s_grade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gChinese != null">
+        g_chinese,
+      </if>
+      <if test="gEnglish != null">
+        g_english,
+      </if>
+      <if test="gMath != null">
+        g_math,
+      </if>
+      <if test="gPysics != null">
+        g_pysics,
+      </if>
+      <if test="gBiology != null">
+        g_biology,
+      </if>
+      <if test="gChemistry != null">
+        g_chemistry,
+      </if>
+      <if test="gHistory != null">
+        g_history,
+      </if>
+      <if test="gPolitics != null">
+        g_politics,
+      </if>
+      <if test="gGeography != null">
+        g_geography,
+      </if>
+      <if test="testId != null">
+        test_id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="gradeStatus != null">
+        grade_status,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gChinese != null">
+        #{gChinese,jdbcType=DECIMAL},
+      </if>
+      <if test="gEnglish != null">
+        #{gEnglish,jdbcType=DECIMAL},
+      </if>
+      <if test="gMath != null">
+        #{gMath,jdbcType=DECIMAL},
+      </if>
+      <if test="gPysics != null">
+        #{gPysics,jdbcType=DECIMAL},
+      </if>
+      <if test="gBiology != null">
+        #{gBiology,jdbcType=DECIMAL},
+      </if>
+      <if test="gChemistry != null">
+        #{gChemistry,jdbcType=DECIMAL},
+      </if>
+      <if test="gHistory != null">
+        #{gHistory,jdbcType=DECIMAL},
+      </if>
+      <if test="gPolitics != null">
+        #{gPolitics,jdbcType=DECIMAL},
+      </if>
+      <if test="gGeography != null">
+        #{gGeography,jdbcType=DECIMAL},
+      </if>
+      <if test="testId != null">
+        #{testId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeStatus != null">
+        #{gradeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.SGrade">
+    update s_grade
+    <set>
+      <if test="gChinese != null">
+        g_chinese = #{gChinese,jdbcType=DECIMAL},
+      </if>
+      <if test="gEnglish != null">
+        g_english = #{gEnglish,jdbcType=DECIMAL},
+      </if>
+      <if test="gMath != null">
+        g_math = #{gMath,jdbcType=DECIMAL},
+      </if>
+      <if test="gPysics != null">
+        g_pysics = #{gPysics,jdbcType=DECIMAL},
+      </if>
+      <if test="gBiology != null">
+        g_biology = #{gBiology,jdbcType=DECIMAL},
+      </if>
+      <if test="gChemistry != null">
+        g_chemistry = #{gChemistry,jdbcType=DECIMAL},
+      </if>
+      <if test="gHistory != null">
+        g_history = #{gHistory,jdbcType=DECIMAL},
+      </if>
+      <if test="gPolitics != null">
+        g_politics = #{gPolitics,jdbcType=DECIMAL},
+      </if>
+      <if test="gGeography != null">
+        g_geography = #{gGeography,jdbcType=DECIMAL},
+      </if>
+      <if test="testId != null">
+        test_id = #{testId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeStatus != null">
+        grade_status = #{gradeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where s_grade_id = #{sGradeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.SGrade">
+    update s_grade
+    set g_chinese = #{gChinese,jdbcType=DECIMAL},
+      g_english = #{gEnglish,jdbcType=DECIMAL},
+      g_math = #{gMath,jdbcType=DECIMAL},
+      g_pysics = #{gPysics,jdbcType=DECIMAL},
+      g_biology = #{gBiology,jdbcType=DECIMAL},
+      g_chemistry = #{gChemistry,jdbcType=DECIMAL},
+      g_history = #{gHistory,jdbcType=DECIMAL},
+      g_politics = #{gPolitics,jdbcType=DECIMAL},
+      g_geography = #{gGeography,jdbcType=DECIMAL},
+      test_id = #{testId,jdbcType=INTEGER},
+      student_id = #{studentId,jdbcType=INTEGER},
+      grade_status = #{gradeStatus,jdbcType=VARCHAR}
+    where s_grade_id = #{sGradeId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getByTestClassId" resultMap="BaseResultMap">
+    select * from s_grade where class_id =#{classId} and test_id = #{testId};
+  </select>
+    <select id="selectByStudentIdAndTestId" resultType="com.xuexikuaile.deng.pojo.SGrade">
+      select * from s_grade where student_id =#{studentId} and test_id = #{testId};
+    </select>
+    <select id="getByStudentId" resultType="com.xuexikuaile.deng.pojo.SGrade">
+      select * from s_grade where student_id = #{studentId};
+    </select>
+</mapper>

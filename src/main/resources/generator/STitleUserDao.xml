@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.STitleUserDao">
+  <resultMap id="BaseResultMap" type="generate.STitleUser">
+    <id column="title_user_id" jdbcType="INTEGER" property="titleUserId" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    title_user_id, title_id, user_id, c_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_title_user
+    where title_user_id = #{titleUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_title_user
+    where title_user_id = #{titleUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="title_user_id" keyProperty="titleUserId" parameterType="generate.STitleUser" useGeneratedKeys="true">
+    insert into s_title_user (title_id, user_id, c_time
+      )
+    values (#{titleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{cTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="title_user_id" keyProperty="titleUserId" parameterType="generate.STitleUser" useGeneratedKeys="true">
+    insert into s_title_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="titleId != null">
+        title_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.STitleUser">
+    update s_title_user
+    <set>
+      <if test="titleId != null">
+        title_id = #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where title_user_id = #{titleUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.STitleUser">
+    update s_title_user
+    set title_id = #{titleId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP}
+    where title_user_id = #{titleUserId,jdbcType=INTEGER}
+  </update>
+</mapper>

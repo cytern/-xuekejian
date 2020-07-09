@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.GradeRuleDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.GradeRule">
+    <id column="grade_rule_id" jdbcType="INTEGER" property="gradeRuleId" />
+    <result column="grade_type" jdbcType="VARCHAR" property="gradeType" />
+    <result column="grade_test_id" jdbcType="INTEGER" property="gradeTestId" />
+    <result column="bio_price" jdbcType="DECIMAL" property="bioPrice" />
+    <result column="chinese_price" jdbcType="DECIMAL" property="chinesePrice" />
+    <result column="english_price" jdbcType="DECIMAL" property="englishPrice" />
+    <result column="math_price" jdbcType="DECIMAL" property="mathPrice" />
+    <result column="che_price" jdbcType="DECIMAL" property="chePrice" />
+    <result column="phy_price" jdbcType="DECIMAL" property="phyPrice" />
+    <result column="his_price" jdbcType="DECIMAL" property="hisPrice" />
+    <result column="pol_price" jdbcType="DECIMAL" property="polPrice" />
+    <result column="geo_price" jdbcType="DECIMAL" property="geoPrice" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="science_price" jdbcType="DECIMAL" property="sciencePrice" />
+    <result column="arts_price" jdbcType="DECIMAL" property="artsPrice" />
+    <result column="ScoreOrGit" jdbcType="INTEGER" property="scoreorgit" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    grade_rule_id, grade_type, grade_test_id, bio_price, chinese_price, english_price, 
+    math_price, che_price, phy_price, his_price, pol_price, geo_price, student_id, science_price, 
+    arts_price, ScoreOrGit, total_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from grade_rule
+    where grade_rule_id = #{gradeRuleId,jdbcType=INTEGER}
+  </select>
+    <select id="getByTestId" resultType="com.xuexikuaile.deng.pojo.GradeRule">
+      select * from grade_rule where grade_test_id = #{testId};
+    </select>
+    <select id="getByAllType" resultType="com.xuexikuaile.deng.pojo.GradeRule" parameterType="com.xuexikuaile.deng.pojo.GradeRule">
+      select * from grade_rule where grade_test_id = #{gradeTestId} and
+                                     grade_type = #{gradeType} and
+                                     student_id = #{studentId};
+     </select>
+  <select id="getByStudentId" resultType="com.xuexikuaile.deng.pojo.GradeRule">
+    select * from grade_rule where student_id = #{studentId}
+    and grade_type = #{gradeType};
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from grade_rule
+    where grade_rule_id = #{gradeRuleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="grade_rule_id" keyProperty="gradeRuleId" parameterType="com.xuexikuaile.deng.pojo.GradeRule" useGeneratedKeys="true">
+    insert into grade_rule (grade_type, grade_test_id, bio_price, 
+      chinese_price, english_price, math_price, 
+      che_price, phy_price, his_price, 
+      pol_price, geo_price, student_id, 
+      science_price, arts_price, ScoreOrGit, 
+      total_price)
+    values (#{gradeType,jdbcType=VARCHAR}, #{gradeTestId,jdbcType=INTEGER}, #{bioPrice,jdbcType=DECIMAL}, 
+      #{chinesePrice,jdbcType=DECIMAL}, #{englishPrice,jdbcType=DECIMAL}, #{mathPrice,jdbcType=DECIMAL}, 
+      #{chePrice,jdbcType=DECIMAL}, #{phyPrice,jdbcType=DECIMAL}, #{hisPrice,jdbcType=DECIMAL}, 
+      #{polPrice,jdbcType=DECIMAL}, #{geoPrice,jdbcType=DECIMAL}, #{studentId,jdbcType=INTEGER}, 
+      #{sciencePrice,jdbcType=DECIMAL}, #{artsPrice,jdbcType=DECIMAL}, #{scoreorgit,jdbcType=INTEGER}, 
+      #{totalPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" keyColumn="grade_rule_id" keyProperty="gradeRuleId" parameterType="com.xuexikuaile.deng.pojo.GradeRule" useGeneratedKeys="true">
+    insert into grade_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gradeType != null">
+        grade_type,
+      </if>
+      <if test="gradeTestId != null">
+        grade_test_id,
+      </if>
+      <if test="bioPrice != null">
+        bio_price,
+      </if>
+      <if test="chinesePrice != null">
+        chinese_price,
+      </if>
+      <if test="englishPrice != null">
+        english_price,
+      </if>
+      <if test="mathPrice != null">
+        math_price,
+      </if>
+      <if test="chePrice != null">
+        che_price,
+      </if>
+      <if test="phyPrice != null">
+        phy_price,
+      </if>
+      <if test="hisPrice != null">
+        his_price,
+      </if>
+      <if test="polPrice != null">
+        pol_price,
+      </if>
+      <if test="geoPrice != null">
+        geo_price,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="sciencePrice != null">
+        science_price,
+      </if>
+      <if test="artsPrice != null">
+        arts_price,
+      </if>
+      <if test="scoreorgit != null">
+        ScoreOrGit,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gradeType != null">
+        #{gradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeTestId != null">
+        #{gradeTestId,jdbcType=INTEGER},
+      </if>
+      <if test="bioPrice != null">
+        #{bioPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="chinesePrice != null">
+        #{chinesePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="englishPrice != null">
+        #{englishPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mathPrice != null">
+        #{mathPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="chePrice != null">
+        #{chePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="phyPrice != null">
+        #{phyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="hisPrice != null">
+        #{hisPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="polPrice != null">
+        #{polPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="geoPrice != null">
+        #{geoPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="sciencePrice != null">
+        #{sciencePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="artsPrice != null">
+        #{artsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="scoreorgit != null">
+        #{scoreorgit,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.GradeRule">
+    update grade_rule
+    <set>
+      <if test="gradeType != null">
+        grade_type = #{gradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeTestId != null">
+        grade_test_id = #{gradeTestId,jdbcType=INTEGER},
+      </if>
+      <if test="bioPrice != null">
+        bio_price = #{bioPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="chinesePrice != null">
+        chinese_price = #{chinesePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="englishPrice != null">
+        english_price = #{englishPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mathPrice != null">
+        math_price = #{mathPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="chePrice != null">
+        che_price = #{chePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="phyPrice != null">
+        phy_price = #{phyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="hisPrice != null">
+        his_price = #{hisPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="polPrice != null">
+        pol_price = #{polPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="geoPrice != null">
+        geo_price = #{geoPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="sciencePrice != null">
+        science_price = #{sciencePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="artsPrice != null">
+        arts_price = #{artsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="scoreorgit != null">
+        ScoreOrGit = #{scoreorgit,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where grade_rule_id = #{gradeRuleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.GradeRule">
+    update grade_rule
+    set grade_type = #{gradeType,jdbcType=VARCHAR},
+      grade_test_id = #{gradeTestId,jdbcType=INTEGER},
+      bio_price = #{bioPrice,jdbcType=DECIMAL},
+      chinese_price = #{chinesePrice,jdbcType=DECIMAL},
+      english_price = #{englishPrice,jdbcType=DECIMAL},
+      math_price = #{mathPrice,jdbcType=DECIMAL},
+      che_price = #{chePrice,jdbcType=DECIMAL},
+      phy_price = #{phyPrice,jdbcType=DECIMAL},
+      his_price = #{hisPrice,jdbcType=DECIMAL},
+      pol_price = #{polPrice,jdbcType=DECIMAL},
+      geo_price = #{geoPrice,jdbcType=DECIMAL},
+      student_id = #{studentId,jdbcType=INTEGER},
+      science_price = #{sciencePrice,jdbcType=DECIMAL},
+      arts_price = #{artsPrice,jdbcType=DECIMAL},
+      ScoreOrGit = #{scoreorgit,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=DECIMAL}
+    where grade_rule_id = #{gradeRuleId,jdbcType=INTEGER}
+  </update>
+</mapper>

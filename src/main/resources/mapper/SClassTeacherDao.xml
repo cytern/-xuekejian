@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SClassTeacherDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SClassTeacher">
+    <id column="s_class_teacher_id" jdbcType="INTEGER" property="sClassTeacherId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_class_teacher_id, class_id, teacher_id, c_time, u_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_class_teacher
+    where s_class_teacher_id = #{sClassTeacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_class_teacher
+    where s_class_teacher_id = #{sClassTeacherId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_class_teacher_id" keyProperty="sClassTeacherId" parameterType="com.xuexikuaile.deng.pojo.SClassTeacher" useGeneratedKeys="true">
+    insert into s_class_teacher (class_id, teacher_id, c_time, 
+      u_time)
+    values (#{classId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{cTime,jdbcType=TIMESTAMP}, 
+      #{uTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="s_class_teacher_id" keyProperty="sClassTeacherId" parameterType="com.xuexikuaile.deng.pojo.SClassTeacher" useGeneratedKeys="true">
+    insert into s_class_teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.SClassTeacher">
+    update s_class_teacher
+    <set>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        u_time = #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where s_class_teacher_id = #{sClassTeacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.SClassTeacher">
+    update s_class_teacher
+    set class_id = #{classId,jdbcType=INTEGER},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      u_time = #{uTime,jdbcType=TIMESTAMP}
+    where s_class_teacher_id = #{sClassTeacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

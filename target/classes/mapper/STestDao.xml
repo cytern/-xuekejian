@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.STestDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.STest">
+    <id column="s_test_id" jdbcType="INTEGER" property="sTestId" />
+    <result column="test_name" jdbcType="VARCHAR" property="testName" />
+    <result column="test_time" jdbcType="TIMESTAMP" property="testTime" />
+    <result column="test_start_user_id" jdbcType="INTEGER" property="testStartUserId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="test_type" jdbcType="VARCHAR" property="testType"></result>
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_test_id, test_name, test_time, test_start_user_id, c_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_test
+    where s_test_id = #{sTestId,jdbcType=INTEGER}
+  </select>
+    <select id="getAllTest" resultType="com.xuexikuaile.deng.pojo.STest">
+      select * from s_test;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_test
+    where s_test_id = #{sTestId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_test_id" keyProperty="sTestId" parameterType="com.xuexikuaile.deng.pojo.STest" useGeneratedKeys="true">
+    insert into s_test (test_name, test_time, test_start_user_id, 
+      c_time,test_type)
+    values (#{testName,jdbcType=VARCHAR}, #{testTime,jdbcType=TIMESTAMP}, #{testStartUserId,jdbcType=INTEGER}, 
+      #{cTime,jdbcType=TIMESTAMP},#{testType})
+  </insert>
+  <insert id="insertSelective" keyColumn="s_test_id" keyProperty="sTestId" parameterType="com.xuexikuaile.deng.pojo.STest" useGeneratedKeys="true">
+    insert into s_test
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="testName != null">
+        test_name,
+      </if>
+      <if test="testTime != null">
+        test_time,
+      </if>
+      <if test="testStartUserId != null">
+        test_start_user_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="testType != null">
+        test_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="testName != null">
+        #{testName,jdbcType=VARCHAR},
+      </if>
+      <if test="testTime != null">
+        #{testTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStartUserId != null">
+        #{testStartUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testType != null">
+        #{testType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.STest">
+    update s_test
+    <set>
+      <if test="testName != null">
+        test_name = #{testName,jdbcType=VARCHAR},
+      </if>
+      <if test="testTime != null">
+        test_time = #{testTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStartUserId != null">
+        test_start_user_id = #{testStartUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testType != null">
+        test_type = #{testType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_test_id = #{sTestId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.STest">
+    update s_test
+    set test_name = #{testName,jdbcType=VARCHAR},
+      test_time = #{testTime,jdbcType=TIMESTAMP},
+      test_start_user_id = #{testStartUserId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP}
+    where s_test_id = #{sTestId,jdbcType=INTEGER}
+  </update>
+</mapper>

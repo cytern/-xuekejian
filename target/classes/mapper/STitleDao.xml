@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.STitleDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.STitle">
+    <id column="s_title_id" jdbcType="INTEGER" property="sTitleId" />
+    <result column="s_title_title" jdbcType="VARCHAR" property="sTitleTitle" />
+    <result column="s_title_conf" jdbcType="VARCHAR" property="sTitleConf" />
+    <result column="start_user_id" jdbcType="INTEGER" property="startUserId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="title_type" jdbcType="VARCHAR" property="titleType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_title_id, s_title_title, s_title_conf, start_user_id, c_time, end_time, title_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_title
+    where s_title_id = #{sTitleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_title
+    where s_title_id = #{sTitleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_title_id" keyProperty="sTitleId" parameterType="com.xuexikuaile.deng.pojo.STitle" useGeneratedKeys="true">
+    insert into s_title (s_title_title, s_title_conf, start_user_id, 
+      c_time, end_time, title_type
+      )
+    values (#{sTitleTitle,jdbcType=VARCHAR}, #{sTitleConf,jdbcType=VARCHAR}, #{startUserId,jdbcType=INTEGER}, 
+      #{cTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{titleType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="s_title_id" keyProperty="sTitleId" parameterType="com.xuexikuaile.deng.pojo.STitle" useGeneratedKeys="true">
+    insert into s_title
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sTitleTitle != null">
+        s_title_title,
+      </if>
+      <if test="sTitleConf != null">
+        s_title_conf,
+      </if>
+      <if test="startUserId != null">
+        start_user_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="titleType != null">
+        title_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sTitleTitle != null">
+        #{sTitleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sTitleConf != null">
+        #{sTitleConf,jdbcType=VARCHAR},
+      </if>
+      <if test="startUserId != null">
+        #{startUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="titleType != null">
+        #{titleType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.STitle">
+    update s_title
+    <set>
+      <if test="sTitleTitle != null">
+        s_title_title = #{sTitleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sTitleConf != null">
+        s_title_conf = #{sTitleConf,jdbcType=VARCHAR},
+      </if>
+      <if test="startUserId != null">
+        start_user_id = #{startUserId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="titleType != null">
+        title_type = #{titleType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_title_id = #{sTitleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.STitle">
+    update s_title
+    set s_title_title = #{sTitleTitle,jdbcType=VARCHAR},
+      s_title_conf = #{sTitleConf,jdbcType=VARCHAR},
+      start_user_id = #{startUserId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      title_type = #{titleType,jdbcType=VARCHAR}
+    where s_title_id = #{sTitleId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.SRootDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.SRoot">
+    <id column="s_root_id" jdbcType="INTEGER" property="sRootId" />
+    <result column="s_root_name" jdbcType="VARCHAR" property="sRootName" />
+    <result column="s_root_phone" jdbcType="VARCHAR" property="sRootPhone" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_root_id, s_root_name, s_root_phone, user_id, c_time, u_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_root
+    where s_root_id = #{sRootId,jdbcType=INTEGER}
+  </select>
+    <select id="getRootByUserId" resultType="com.xuexikuaile.deng.pojo.SRoot">
+      select * from s_root where user_id = ${userId};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_root
+    where s_root_id = #{sRootId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_root_id" keyProperty="sRootId" parameterType="com.xuexikuaile.deng.pojo.SRoot" useGeneratedKeys="true">
+    insert into s_root (s_root_name, s_root_phone, user_id, 
+      c_time, u_time)
+    values (#{sRootName,jdbcType=VARCHAR}, #{sRootPhone,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{cTime,jdbcType=TIMESTAMP}, #{uTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="s_root_id" keyProperty="sRootId" parameterType="com.xuexikuaile.deng.pojo.SRoot" useGeneratedKeys="true">
+    insert into s_root
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sRootName != null">
+        s_root_name,
+      </if>
+      <if test="sRootPhone != null">
+        s_root_phone,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sRootName != null">
+        #{sRootName,jdbcType=VARCHAR},
+      </if>
+      <if test="sRootPhone != null">
+        #{sRootPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.SRoot">
+    update s_root
+    <set>
+      <if test="sRootName != null">
+        s_root_name = #{sRootName,jdbcType=VARCHAR},
+      </if>
+      <if test="sRootPhone != null">
+        s_root_phone = #{sRootPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        u_time = #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where s_root_id = #{sRootId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.SRoot">
+    update s_root
+    set s_root_name = #{sRootName,jdbcType=VARCHAR},
+      s_root_phone = #{sRootPhone,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      u_time = #{uTime,jdbcType=TIMESTAMP}
+    where s_root_id = #{sRootId,jdbcType=INTEGER}
+  </update>
+</mapper>

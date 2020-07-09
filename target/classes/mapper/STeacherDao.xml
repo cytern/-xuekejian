@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuexikuaile.deng.dao.STeacherDao">
+  <resultMap id="BaseResultMap" type="com.xuexikuaile.deng.pojo.STeacher">
+    <id column="s_teacher_id" jdbcType="INTEGER" property="sTeacherId" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="teacher_url" jdbcType="VARCHAR" property="teacherUrl" />
+    <result column="teacher_conf" jdbcType="VARCHAR" property="teacherConf" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="teacher_phone" jdbcType="VARCHAR" property="teacherPhone" />
+    <result column="teacher_education" jdbcType="VARCHAR" property="teacherEducation" />
+    <result column="teacher_designation" jdbcType="VARCHAR" property="teacherDesignation" />
+    <result column="teacher_honor" jdbcType="VARCHAR" property="teacherHonor" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+    <result column="teacher_type" jdbcType="VARCHAR" property="teacherType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_teacher_id, teacher_name, teacher_url, teacher_conf, user_id, teacher_phone, teacher_education, 
+    teacher_designation, teacher_honor, c_time, u_time, teacher_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_teacher
+    where s_teacher_id = #{sTeacherId,jdbcType=INTEGER}
+  </select>
+    <select id="getTeacherByUserId" resultType="com.xuexikuaile.deng.pojo.STeacher">
+      select * from s_teacher where user_id = #{userId};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_teacher
+    where s_teacher_id = #{sTeacherId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="s_teacher_id" keyProperty="sTeacherId" parameterType="com.xuexikuaile.deng.pojo.STeacher" useGeneratedKeys="true">
+    insert into s_teacher (teacher_name, teacher_url, teacher_conf, 
+      user_id, teacher_phone, teacher_education, 
+      teacher_designation, teacher_honor, c_time, 
+      u_time, teacher_type)
+    values (#{teacherName,jdbcType=VARCHAR}, #{teacherUrl,jdbcType=VARCHAR}, #{teacherConf,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{teacherPhone,jdbcType=VARCHAR}, #{teacherEducation,jdbcType=VARCHAR}, 
+      #{teacherDesignation,jdbcType=VARCHAR}, #{teacherHonor,jdbcType=VARCHAR}, #{cTime,jdbcType=TIMESTAMP}, 
+      #{uTime,jdbcType=TIMESTAMP}, #{teacherType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="s_teacher_id" keyProperty="sTeacherId" parameterType="com.xuexikuaile.deng.pojo.STeacher" useGeneratedKeys="true">
+    insert into s_teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherName != null">
+        teacher_name,
+      </if>
+      <if test="teacherUrl != null">
+        teacher_url,
+      </if>
+      <if test="teacherConf != null">
+        teacher_conf,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="teacherPhone != null">
+        teacher_phone,
+      </if>
+      <if test="teacherEducation != null">
+        teacher_education,
+      </if>
+      <if test="teacherDesignation != null">
+        teacher_designation,
+      </if>
+      <if test="teacherHonor != null">
+        teacher_honor,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+      <if test="teacherType != null">
+        teacher_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherUrl != null">
+        #{teacherUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherConf != null">
+        #{teacherConf,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherPhone != null">
+        #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEducation != null">
+        #{teacherEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherDesignation != null">
+        #{teacherDesignation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherHonor != null">
+        #{teacherHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherType != null">
+        #{teacherType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <insert id="insertTeacherList" parameterType="java.util.List">
+      insert into s_teacher
+      (teacher_name, teacher_url, teacher_conf,
+      user_id, teacher_phone, teacher_education,
+      teacher_designation, teacher_honor, c_time,
+      u_time, teacher_type)
+      values
+      <foreach collection="list" item="teacher" index="index" separator="," >
+        (#{teacher.teacherName,jdbcType=VARCHAR}, #{teacher.teacherUrl,jdbcType=VARCHAR}, #{teacher.teacherConf,jdbcType=VARCHAR},
+        #{teacher.userId,jdbcType=INTEGER}, #{teacher.teacherPhone,jdbcType=VARCHAR}, #{teacher.teacherEducation,jdbcType=VARCHAR},
+        #{teacher.teacherDesignation,jdbcType=VARCHAR}, #{teacher.teacherHonor,jdbcType=VARCHAR}, #{teacher.cTime,jdbcType=TIMESTAMP},
+        #{teacher.uTime,jdbcType=TIMESTAMP}, #{teacher.teacherType,jdbcType=VARCHAR})
+      </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xuexikuaile.deng.pojo.STeacher">
+    update s_teacher
+    <set>
+      <if test="teacherName != null">
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherUrl != null">
+        teacher_url = #{teacherUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherConf != null">
+        teacher_conf = #{teacherConf,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherPhone != null">
+        teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEducation != null">
+        teacher_education = #{teacherEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherDesignation != null">
+        teacher_designation = #{teacherDesignation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherHonor != null">
+        teacher_honor = #{teacherHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        u_time = #{uTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherType != null">
+        teacher_type = #{teacherType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_teacher_id = #{sTeacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexikuaile.deng.pojo.STeacher">
+    update s_teacher
+    set teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teacher_url = #{teacherUrl,jdbcType=VARCHAR},
+      teacher_conf = #{teacherConf,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      teacher_education = #{teacherEducation,jdbcType=VARCHAR},
+      teacher_designation = #{teacherDesignation,jdbcType=VARCHAR},
+      teacher_honor = #{teacherHonor,jdbcType=VARCHAR},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      u_time = #{uTime,jdbcType=TIMESTAMP},
+      teacher_type = #{teacherType,jdbcType=VARCHAR}
+    where s_teacher_id = #{sTeacherId,jdbcType=INTEGER}
+  </update>
+</mapper>
